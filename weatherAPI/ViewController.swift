@@ -25,7 +25,7 @@ class ViewController: UIViewController {
 
     @IBAction func submit(_ sender: AnyObject) {
         
-        if let url = URL(string: "https://api.openweathermap.org/data/2.5/forecast?q=" + txtCity.text!.replacingOccurrences(of: " ", with: "%20") + "&appid=" + api_key) {
+        if let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=" + txtCity.text!.replacingOccurrences(of: " ", with: "%20") + "&appid=" + api_key) {
             
             let task = URLSession.shared.dataTask(with: url) {
                 (data, response, error) in

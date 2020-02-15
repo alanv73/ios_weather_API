@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController {
     
@@ -15,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet var txtCity: UITextField!
     @IBOutlet var txtResult: UILabel!
     @IBOutlet weak var imgWx: UIImageView!
+    @IBOutlet weak var map: MKMapView!
     
 
     override func viewDidLoad() {
@@ -22,11 +24,11 @@ class ViewController: UIViewController {
        // https://api.openweathermap.org/data/2.5/forecast?q=state%20college&APPID=1a803c6d19763d2067ca9953d3b3526c
         
         txtResult.text = ""
+        map.isHidden = true
         
     }
 
     @IBAction func submit(_ sender: AnyObject) {
-        
         if let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=" + txtCity.text!.replacingOccurrences(of: " ", with: "%20") + "&units=imperial&appid=" + api_key) {
             
             let task = URLSession.shared.dataTask(with: url) {
@@ -41,19 +43,48 @@ class ViewController: UIViewController {
                             
                             print(jsonResult)
                             
-                            if(jsonResult["message"] as? String != "city not found") {
+                            if(jsonResult["message"]! == nil) {
                                 print(jsonResult["name"]!!)
-                            }
+                                print(jsonResult["coord"]!!)
                             
-                            if let description = ((jsonResult["weather"] as? NSArray)?[0] as? NSDictionary)?["description"] as? String {
+                            
+                                if let description = ((jsonResult["weather"] as? NSArray)?[0] as? NSDictionary)?["description"] as? String {
+                                    DispatchQueue.main.sync(execute: {
+                                        self.txtResult.text = description
+                                    })
+                                }
+                                if let icon = ((jsonResult["weather"] as? NSArray)?[0] as? NSDictionary)?["icon"] as? String {
+                                    DispatchQueue.main.sync(execute: {
+                                        self.getIcon(icon)
+                                    })
+                                }
+                                
+                                let mainCondx = jsonResult["main"]
+                                
+                                print(mainCondx!!)
+                                
+                                let realFeel = (mainCondx as! NSMutableDictionary)["feels_like"]
+                                let temp = (mainCondx as! NSMutableDictionary)["temp"]
+                                
+                                
+                                print(temp!)
+                                
+                                let location = jsonResult["coord"]
+                                
+                                let lat = (location as! NSMutableDictionary)["lat"]!
+                                let lon = (location as! NSMutableDictionary)["lon"]!
+
                                 DispatchQueue.main.sync(execute: {
-                                    self.txtResult.text = description
+                                    self.showMap(lat as! Double, lon as! Double)
                                 })
-                            }
-                            if let icon = ((jsonResult["weather"] as? NSArray)?[0] as? NSDictionary)?["icon"] as? String {
-                                DispatchQueue.main.sync(execute: {
-                                    self.getIcon(icon)
-                                })
+
+                            } else {
+                                DispatchQueue.main.async {
+                                    print(jsonResult["message"]!!)
+                                    self.txtResult.text = (jsonResult["message"] as! String)
+                                    self.map.isHidden = true
+                                    self.imgWx.isHidden = true
+                                }
                             }
                             
                         } catch {
@@ -80,10 +111,27 @@ class ViewController: UIViewController {
 
             DispatchQueue.main.async() {    // execute on main thread
                 self.imgWx.image = UIImage(data: data)
+                self.imgWx.isHidden = false
             }
         }
 
         task.resume()
+    }
+    
+    func showMap(_ lat: Double, _ lon: Double) {
+        map.isHidden = false
+        
+        let latitude: CLLocationDegrees = lat //40.775074
+        let longitude: CLLocationDegrees = lon //-77.855720
+        let latDelta: CLLocationDegrees = 0.05
+        let lonDelta: CLLocationDegrees = 0.05
+        let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
+        
+        let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let region = MKCoordinateRegion(center: coordinates, span: span)
+        map.setRegion(region, animated: true)
+        
+        
     }
 
 }

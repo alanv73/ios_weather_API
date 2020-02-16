@@ -17,6 +17,11 @@ class ViewController: UIViewController {
     @IBOutlet var txtResult: UILabel!
     @IBOutlet weak var imgWx: UIImageView!
     @IBOutlet weak var map: MKMapView!
+    @IBOutlet weak var lblTemp: UILabel!
+    @IBOutlet weak var lblRealFeel: UILabel!
+    @IBOutlet weak var lblTempLbl: UILabel!
+    @IBOutlet weak var lblRealFeelLbl: UILabel!
+    
     
 
     override func viewDidLoad() {
@@ -61,13 +66,12 @@ class ViewController: UIViewController {
                                 
                                 let mainCondx = jsonResult["main"]
                                 
-                                print(mainCondx!!)
-                                
-                                let realFeel = (mainCondx as! NSMutableDictionary)["feels_like"]
-                                let temp = (mainCondx as! NSMutableDictionary)["temp"]
+                                let realFeel = (mainCondx as! NSMutableDictionary)["feels_like"] as! Double
+                                let temp = (mainCondx as! NSMutableDictionary)["temp"] as! Double
                                 
                                 
-                                print(temp!)
+                                
+                                print(temp)
                                 
                                 let location = jsonResult["coord"]
                                 
@@ -75,6 +79,12 @@ class ViewController: UIViewController {
                                 let lon = (location as! NSMutableDictionary)["lon"]!
 
                                 DispatchQueue.main.sync(execute: {
+                                    self.lblTemp.text = String(format: "%.1f", temp) + "°"
+                                    self.lblTemp.isHidden = false
+                                    self.lblTempLbl.isHidden = false
+                                    self.lblRealFeel.text = String(format: "%.1f", realFeel) + "°"
+                                    self.lblRealFeel.isHidden = false
+                                    self.lblRealFeelLbl.isHidden = false
                                     self.showMap(lat as! Double, lon as! Double)
                                 })
 
@@ -84,6 +94,10 @@ class ViewController: UIViewController {
                                     self.txtResult.text = (jsonResult["message"] as! String)
                                     self.map.isHidden = true
                                     self.imgWx.isHidden = true
+                                    self.lblTemp.isHidden = true
+                                    self.lblRealFeel.isHidden = true
+                                    self.lblTempLbl.isHidden = true
+                                    self.lblRealFeelLbl.isHidden = true
                                 }
                             }
                             

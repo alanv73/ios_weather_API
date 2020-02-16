@@ -15,6 +15,8 @@
 		C20F3CA323F47BA200AE78D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C20F3CA123F47BA200AE78D0 /* LaunchScreen.storyboard */; };
 		C20F3CAE23F47BA200AE78D0 /* weatherAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20F3CAD23F47BA200AE78D0 /* weatherAPITests.swift */; };
 		C20F3CB923F47BA200AE78D0 /* weatherAPIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20F3CB823F47BA200AE78D0 /* weatherAPIUITests.swift */; };
+		E7763D0E23F8C08A00196992 /* weather.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7763D0D23F8C08A00196992 /* weather.jpg */; };
+		E7763D1023F8C24B00196992 /* clouds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7763D0F23F8C24B00196992 /* clouds.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		C20F3CB423F47BA200AE78D0 /* weatherAPIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weatherAPIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C20F3CB823F47BA200AE78D0 /* weatherAPIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weatherAPIUITests.swift; sourceTree = "<group>"; };
 		C20F3CBA23F47BA200AE78D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7763D0D23F8C08A00196992 /* weather.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = weather.jpg; sourceTree = "<group>"; };
+		E7763D0F23F8C24B00196992 /* clouds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = clouds.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				C20F3C9F23F47BA200AE78D0 /* Assets.xcassets */,
 				C20F3CA123F47BA200AE78D0 /* LaunchScreen.storyboard */,
 				C20F3CA423F47BA200AE78D0 /* Info.plist */,
+				E7763D0F23F8C24B00196992 /* clouds.jpg */,
+				E7763D0D23F8C08A00196992 /* weather.jpg */,
 			);
 			path = weatherAPI;
 			sourceTree = "<group>";
@@ -234,6 +240,8 @@
 			files = (
 				C20F3CA323F47BA200AE78D0 /* LaunchScreen.storyboard in Resources */,
 				C20F3CA023F47BA200AE78D0 /* Assets.xcassets in Resources */,
+				E7763D0E23F8C08A00196992 /* weather.jpg in Resources */,
+				E7763D1023F8C24B00196992 /* clouds.jpg in Resources */,
 				C20F3C9E23F47BA200AE78D0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
